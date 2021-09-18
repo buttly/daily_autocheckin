@@ -27,8 +27,9 @@ def checkin():
     response = session.post(base_url + '/user/checkin', headers=headers, verify=False)
     '微信推送'
     c=response.text
+    d = json.loads(c)
     url='the url of pushplus'
-    data={'token':'the token of your pushplus','title':'机场签到','content':'可用流量'+c[151:157],'template':'html'}
+    data={'token':'the token of your pushplus','title':'机场签到','content':'可用流量'+d["trafficInfo"]["unUsedTraffic"],'template':'html'}
     requests.post(headers=headers,url=url,data=json.dumps(data),timeout=10)
 
 checkin()
